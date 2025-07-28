@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            /* Elegant luxury background */
+            background: 
+                repeating-linear-gradient(135deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 40px),
+                radial-gradient(circle at 60% 30%, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0.08) 30%, transparent 70%),
+                radial-gradient(circle at 30% 80%, rgba(255,255,255,0.10) 0%, transparent 60%),
+                linear-gradient(120deg, #181c2b 0%, #2d2250 60%, #3a2c60 100%);
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(212,175,55,0.13) 0%, rgba(255,255,255,0.04) 40%, transparent 80%);
+            opacity: 0.7;
+        }
+        /* Bokeh effect */
+        .bokeh {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bokeh span {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.25;
+            filter: blur(2px);
+            background: radial-gradient(circle, #fff0f6 60%, #ee9ca7 100%);
+            animation: bokehMove 12s linear infinite;
+        }
+        .bokeh .b1 { width: 120px; height: 120px; left: 10vw; top: 15vh; animation-delay: 0s; }
+        .bokeh .b2 { width: 80px; height: 80px; left: 70vw; top: 10vh; animation-delay: 2s; }
+        .bokeh .b3 { width: 100px; height: 100px; left: 50vw; top: 60vh; animation-delay: 4s; }
+        .bokeh .b4 { width: 60px; height: 60px; left: 20vw; top: 70vh; animation-delay: 6s; }
+        .bokeh .b5 { width: 90px; height: 90px; left: 80vw; top: 50vh; animation-delay: 8s; }
+        @keyframes bokehMove {
+            0% { transform: scale(1) translateY(0); opacity: 0.25; }
+            50% { transform: scale(1.2) translateY(-30px); opacity: 0.35; }
+            100% { transform: scale(1) translateY(0); opacity: 0.25; }
+        }
+        /* Floating hearts */
+        .hearts {
+            position: fixed;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            width: 32px; height: 32px;
+            background: url('https://svgshare.com/i/12nA.svg') no-repeat center/contain;
+            opacity: 0.7;
+            animation: floatHeart 8s linear infinite;
+        }
+        .heart.h1 { left: 10vw; top: 80vh; animation-delay: 0s; }
+        .heart.h2 { left: 30vw; top: 90vh; animation-delay: 2s; }
+        .heart.h3 { left: 60vw; top: 85vh; animation-delay: 4s; }
+        .heart.h4 { left: 80vw; top: 95vh; animation-delay: 1s; }
+        .heart.h5 { left: 50vw; top: 100vh; animation-delay: 3s; }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(1) rotate(-10deg); opacity: 0.7; }
+            40% { opacity: 1; }
+            80% { transform: translateY(-90vh) scale(1.2) rotate(10deg); opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.1) rotate(-10deg); opacity: 0; }
+        }
+        /* Shine animation on title */
+        .hero .title {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero .title::after {
+            content: '';
+            position: absolute;
+            left: -75%;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.1) 100%);
+            transform: skewX(-20deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -75%; }
+            100% { left: 120%; }
+        }
+        /* Parallax effect for hero */
+        .hero {
+            transition: background 0.5s;
+        }
+        /* Pulse animation for RSVP button */
+        .rsvp-btn {
+            animation: bounceIn 1.2s 2.5s both, pulse 2s 3.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.18); }
+            70% { box-shadow: 0 0 0 18px rgba(212,175,55,0); }
+            100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+        }
+        /* Fade in up for footer */
+        .footer {
+            animation: fadeInUpFooter 1.5s 3s both;
+        }
+        @keyframes fadeInUpFooter {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .hero {
+            width: 100vw;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(6px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(60,60,60,0.10);
+            animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .hero .flower {
+            position: absolute;
+            width: 160px;
+            opacity: 0.13;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+        .hero .flower.top-left { top: -60px; left: -60px; animation-delay: 0s; }
+        .hero .flower.bottom-right { bottom: -60px; right: -60px; animation-delay: 2s; }
+        @keyframes float {
+            0% { transform: rotate(-10deg) scale(1); }
+            100% { transform: rotate(10deg) scale(1.1); }
+        }
+        .hero .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            z-index: 1;
+            animation: fadeIn 1.5s 0.5s both;
+            text-shadow: 0 2px 16px rgba(212,175,55,0.10), 0 1px 0 #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hero .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+            z-index: 1;
+            animation: fadeIn 1.5s 1s both;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 30px;
+            z-index: 1;
+            animation: fadeIn 1.5s 1.2s both;
+        }
+        .countdown-item {
+            background: rgba(255,255,255,0.7);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(67,198,172,0.10);
+            padding: 12px 18px;
+            text-align: center;
+            min-width: 60px;
+        }
+        .countdown-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #43c6ac;
+        }
+        .countdown-item small {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            background: rgba(255,255,255,0.45);
+            border-radius: 32px;
+            box-shadow: 0 8px 40px 0 rgba(212,175,55,0.10), 0 1.5px 8px 0 rgba(212,175,55,0.08);
+            padding: 48px 32px 64px 32px;
+            position: relative;
+            overflow: hidden;
+            border: 1.5px solid rgba(212,175,55,0.18);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .couple {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .couple .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d4af37;
+            background: linear-gradient(90deg, #d4af37, #fffbe6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInLeft 1.2s forwards;
+            text-shadow: 0 2px 12px rgba(212,175,55,0.10);
+        }
+        .couple .name:last-child {
+            animation: fadeInRight 1.2s 0.3s forwards;
+        }
+        @keyframes fadeInLeft {
+            0% { opacity: 0; transform: translateX(-60px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translateX(60px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .and {
+            font-size: 1.7rem;
+            color: #aaa;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .details {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideInDetails 1.2s 0.8s forwards;
+        }
+        @keyframes slideInDetails {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .details strong {
+            color: #d4af37;
+        }
+        .gallery {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0 40px 0;
+        }
+        .gallery img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(67,198,172,0.10);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: galleryFadeIn 1s forwards;
+        }
+        .gallery img:nth-child(1) { animation-delay: 1.2s; }
+        .gallery img:nth-child(2) { animation-delay: 1.4s; }
+        .gallery img:nth-child(3) { animation-delay: 1.6s; }
+        .gallery img:nth-child(4) { animation-delay: 1.8s; }
+        @keyframes galleryFadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            80% { opacity: 1; transform: scale(1.08); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .gallery img:hover {
+            transform: scale(1.12) rotate(-2deg);
+            box-shadow: 0 8px 32px rgba(67,198,172,0.18);
+        }
+        .map {
+            width: 100%;
+            height: 220px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 2px 12px rgba(67,198,172,0.10);
+            animation: fadeIn 1.5s 2.4s both;
+        }
+        .rsvp-btn {
+            display: block;
+            margin: 30px auto 0 auto;
+            padding: 16px 44px;
+            background: linear-gradient(90deg, #d4af37 0%, #fffbe6 100%);
+            color: #7a5c15;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 1.5px solid #d4af37;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 24px rgba(212,175,55,0.13);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+            animation: bounceIn 1.2s 2.5s both, pulse 2s 3.5s infinite;
+        }
+        .rsvp-btn:hover {
+            transform: scale(1.08);
+            background: linear-gradient(90deg, #fffbe6 0%, #d4af37 100%);
+            color: #d4af37;
+            box-shadow: 0 8px 32px rgba(212,175,55,0.18);
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.7); }
+            60% { opacity: 1; transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .footer {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-top: 40px;
+            animation: fadeIn 1.5s 3s both;
+        }
+        /* Animasi confetti */
+        .confetti {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 5vw 40px 5vw; }
+            .gallery img { width: 90px; height: 90px; }
+            .hero .title { font-size: 2.1rem; }
+            .couple .name { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bokeh">
+        <span class="b1"></span>
+        <span class="b2"></span>
+        <span class="b3"></span>
+        <span class="b4"></span>
+        <span class="b5"></span>
+    </div>
+    <!-- Balloon effect -->
+    <div class="balloons">
+        <span class="balloon balloon1"></span>
+        <span class="balloon balloon2"></span>
+        <span class="balloon balloon3"></span>
+        <span class="balloon balloon4"></span>
+        <span class="balloon balloon5"></span>
+    </div>
+    <div class="hearts">
+        <span class="heart h1"></span>
+        <span class="heart h2"></span>
+        <span class="heart h3"></span>
+        <span class="heart h4"></span>
+        <span class="heart h5"></span>
+    </div>
+    <canvas class="confetti"></canvas>
+    <script>
+    // Parallax effect for hero section
+    document.addEventListener('mousemove', function(e) {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        hero.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+    });
+    </script>
+    <section class="hero">
+        <img src="https://svgshare.com/i/12kF.svg" class="flower top-left" alt="flower">
+        <img src="https://svgshare.com/i/12kF.svg" class="flower bottom-right" alt="flower">
+        <div class="title">Undangan Pernikahan</div>
+        <div class="subtitle">Dengan penuh suka cita, kami mengundang Anda untuk hadir dalam acara pernikahan kami</div>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item"><span id="days">0</span><small>Hari</small></div>
+            <div class="countdown-item"><span id="hours">0</span><small>Jam</small></div>
+            <div class="countdown-item"><span id="minutes">0</span><small>Menit</small></div>
+            <div class="countdown-item"><span id="seconds">0</span><small>Detik</small></div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="couple">
+            <span class="name">Ahmad Riyadi</span>
+            <span class="and">&amp;</span>
+            <span class="name">NurKadry</span>
+        </div>
+        <div class="details">
+            <div><strong>Sabtu, 30 Agustus 2025</strong></div>
+            <div>Pukul 10.00 WIB - Selesai</div>
+            <div>Gedung Serbaguna Bahagia, Jakarta</div>
+        </div>
+        <div class="gallery">
+            <img src="ahmad.jpg" alt="Galeri 3">
+            <img src="Kadry.jpg" alt="Galeri 4">
+        </div>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.282964295002!2d106.8166663153707!3d-6.219095995497998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1c5e2b2b2b1%3A0x2e69f1c5e2b2b2b1!2sGedung%20Serbaguna%20Bahagia!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <button class="rsvp-btn" onclick="openRSVP()">Konfirmasi Kehadiran</button>
+        <div class="footer">Terima kasih atas doa dan restu Anda</div>
+    </div>
+    <script>
+    // Confetti animation
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+    let confetti = [];
+    for(let i=0;i<120;i++){
+        confetti.push({
+            x: Math.random()*W,
+            y: Math.random()*H - H,
+            r: Math.random()*6+4,
+            d: Math.random()*120+40,
+            color: `hsl(${Math.random()*360},80%,60%)`,
+            tilt: Math.random()*10-10,
+            tiltAngle: 0,
+            tiltAngleIncremental: (Math.random()*0.07)+.05
+        });
+    }
+    function drawConfetti(){
+        ctx.clearRect(0,0,W,H);
+        confetti.forEach(c=>{
+            ctx.beginPath();
+            ctx.lineWidth = c.r;
+            ctx.strokeStyle = c.color;
+            ctx.moveTo(c.x + c.tilt + c.r/3, c.y);
+            ctx.lineTo(c.x + c.tilt, c.y + c.r*2);
+            ctx.stroke();
+        });
+        updateConfetti();
+        requestAnimationFrame(drawConfetti);
+    }
+    function updateConfetti(){
+        confetti.forEach(c=>{
+            c.y += (Math.cos(c.d)+3+ c.r/2)/2;
+            c.x += Math.sin(0.01*c.d);
+            c.tiltAngle += c.tiltAngleIncremental;
+            c.tilt = Math.sin(c.tiltAngle-1) * 15;
+            if(c.y > H){
+                c.x = Math.random()*W;
+                c.y = -10;
+            }
+        });
+    }
+    drawConfetti();
+    window.addEventListener('resize',()=>{
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W; canvas.height = H;
+    });
+    // Countdown
+    function updateCountdown() {
+        const eventDate = new Date('2025-08-30T10:00:00+07:00');
+        const now = new Date();
+        let diff = eventDate - now;
+        if (diff < 0) diff = 0;
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const minutes = Math.floor((diff / (1000*60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    // RSVP button
+    function openRSVP(){
+        window.open('https://wa.me/6285222736431?text=Halo%20saya%20akan%20hadir%20di%20acara%20pernikahan%20Ahmad%20Riyadi%20dan%20NurKadry', '_blank');
+    }
+    // Gallery popup
+    document.querySelectorAll('.gallery img').forEach(img => {
+        img.addEventListener('click', function() {
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.background = 'rgba(0,0,0,0.7)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = 2000;
+            const bigImg = document.createElement('img');
+            bigImg.src = this.src;
+            bigImg.style.maxWidth = '90vw';
+            bigImg.style.maxHeight = '80vh';
+            bigImg.style.borderRadius = '18px';
+            bigImg.style.boxShadow = '0 8px 32px rgba(67,198,172,0.25)';
+            overlay.appendChild(bigImg);
+            overlay.addEventListener('click', ()=>document.body.removeChild(overlay));
+            document.body.appendChild(overlay);
+        });
+    });
+    </script>
+</body>
+</html>
